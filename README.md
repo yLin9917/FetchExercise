@@ -3,6 +3,7 @@
 ## Step 1: Install Android Studio
 If you haven't already, download and install Android Studio from the official website: [Android Studio Download](https://developer.android.com/studio).
 
+Version： **android-studio-2024.1.1.11**
 ## Step 2: Clone the GitHub Repository
 1. Open Android Studio: Launch Android Studio on your computer.
 2. Open Version Control: Click on "Get from Version Control" or go to File -> New -> Project from Version Control.
