@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:visibility="visible"
     tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topBarLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#fba917"
+        android:background="#4B2469"
         tools:context=".MainActivity"
         tools:ignore="MissingConstraints">
 
@@ -31,8 +31,9 @@
                 android:id="@+id/searchBar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:backgroundTint="#fba917"
-                android:text=""
+                android:backgroundTint="#4B2469"
+                android:text="https://fetch-hiring.s3.amazonaws.com/hiring.json"
+                android:textColor="#FDBD10"
                 tools:layout_editor_absoluteX="16dp" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -40,6 +41,7 @@
             android:id="@+id/enterButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
+            android:backgroundTint="#FDBD10"
             android:text="Enter"
             app:cornerRadius="30dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -56,10 +58,75 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topBarLayout"
         tools:context=".MainActivity"
-        tools:ignore="MissingConstraints"
+        tools:ignore="MissingConstraints">
 
-        >
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:background="#FDBD10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:visibility="visible">
 
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/headerListId"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@null"
+                        android:fontFamily="@font/amaranth_bold"
+                        android:gravity="center"
+                        android:maxLength="20"
+                        android:text="LIST ID"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/headerName"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@null"
+                        android:fontFamily="@font/amaranth_bold"
+                        android:gravity="center"
+                        android:maxLength="20"
+                        android:singleLine="true"
+                        android:text="NAME"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/headerId"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:background="@null"
+                        android:fontFamily="@font/amaranth_bold"
+                        android:gravity="center"
+                        android:maxLength="20"
+                        android:singleLine="true"
+                        android:text="ID"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listView"
@@ -68,7 +135,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

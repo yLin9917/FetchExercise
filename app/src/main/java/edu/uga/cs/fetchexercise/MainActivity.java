@@ -27,20 +27,19 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    //
+    // Initialization of teh variables
     Button enterButton;
     EditText searchBar;
     RecyclerView listView;
     RecyclerViewAdapter adapter;
     List<Item> itemList = new ArrayList<>();
 
-    /**
-     * initialize the activity, on create method
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
         // Initialize elements
         enterButton = findViewById(R.id.enterButton);
         searchBar = findViewById(R.id.searchBar);
-
         listView = findViewById(R.id.listView);
         listView.setLayoutManager(new LinearLayoutManager(this));
 
+        // set on click listener
         enterButton.setOnClickListener(e -> {
             enterClicked();
         });
@@ -118,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            itemList = new ArrayList<>();
 
             // if the result from background task is not null, parse them into ArrayList
             if (result != null) {
@@ -140,14 +140,45 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     Log.e("JSONException", e.toString());
                 }
-
+                // call the method to sort the list and pass it to the adapter and recyclerview
+                sortList(itemList);
                 adapter = new RecyclerViewAdapter(itemList);
                 recyclerView.setAdapter(adapter);
-//                list.add(itemList)
             } else {
-//                content.setText("Failed to fetch data");
+                searchBar.setText("Failed to fetch data");
             }
         }
+    }
+
+    /**
+     * This method is called when all the items are added to the list, sorts the items by lisstId,
+     * then by the numeric part of name.
+     * @param items the Item List
+     */
+    private void sortList(List<Item> items) {
+
+        items.sort((item1, item2) -> {
+            int idDiff = Integer.compare(item1.getListId(), item2.getListId());
+            if (idDiff != 0) {
+                return idDiff;
+            } else {
+                int num1 = extractNumber(item1.getName());
+                int num2 = extractNumber(item2.getName());
+                return num1 - num2;
+            }
+
+        });
+
+    }
+
+    /**
+     * Extracts the number from the name
+     * @param name item name
+     * @return the integer part of the name
+     */
+    private int extractNumber(String name) {
+        String numStr = name.replaceAll("[^0-9]", "");
+        return Integer.parseInt(numStr);
     }
 
 }

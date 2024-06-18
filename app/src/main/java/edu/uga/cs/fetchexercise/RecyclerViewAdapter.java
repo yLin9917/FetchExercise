@@ -16,30 +16,32 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private List<Item> itemList;
 
+    // constructor
     public RecyclerViewAdapter(List<Item> itemList) {
         this.itemList = itemList;
     }
 
+    /**
+     * A ViewHolder
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView nameTextView;
         public TextView idTextView;
         public TextView listIdTextView;
 
+        // constructor
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.name);
             idTextView = itemView.findViewById(R.id.id);
             listIdTextView = itemView.findViewById(R.id.listId);
-
         }
-
     }
 
     @NonNull
     @Override
     public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_listview, parent, false);
         return new ViewHolder(itemView);
