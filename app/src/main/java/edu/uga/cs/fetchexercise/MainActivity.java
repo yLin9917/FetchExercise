@@ -3,8 +3,10 @@ package edu.uga.cs.fetchexercise;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -12,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     //
     Button enterButton;
-    TextView content;
     EditText searchBar;
-
+    RecyclerView listView;
+    RecyclerViewAdapter adapter;
     List<Item> itemList = new ArrayList<>();
 
     /**
@@ -45,8 +49,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize elements
         enterButton = findViewById(R.id.enterButton);
-        content = findViewById(R.id.content);
         searchBar = findViewById(R.id.searchBar);
+
+        listView = findViewById(R.id.listView);
+        listView.setLayoutManager(new LinearLayoutManager(this));
 
         enterButton.setOnClickListener(e -> {
             enterClicked();
@@ -59,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
      */
     private void enterClicked() {
         String str = searchBar.getText().toString();
-        new FetchDataTask(content).execute(str);
+        new FetchDataTask(listView).execute(str);
     }
 
     /**
@@ -67,15 +73,14 @@ public class MainActivity extends AppCompatActivity {
      */
     public class FetchDataTask extends AsyncTask<String, Void, String> {
 
-        TextView content;
+        RecyclerView recyclerView;
 
-        public FetchDataTask(TextView content) {
-            this.content = content;
+        public FetchDataTask(RecyclerView recyclerView) {
+            this.recyclerView = recyclerView;
         }
 
         @Override
         protected String doInBackground(String... strings) {
-            Log.e("fetchtask", "111");
 
             String urlString = strings[0];
             try {
@@ -136,9 +141,11 @@ public class MainActivity extends AppCompatActivity {
                     Log.e("JSONException", e.toString());
                 }
 
-                content.setText(result);
+                adapter = new RecyclerViewAdapter(itemList);
+                recyclerView.setAdapter(adapter);
+//                list.add(itemList)
             } else {
-                content.setText("Failed to fetch data");
+//                content.setText("Failed to fetch data");
             }
         }
     }
