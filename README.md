@@ -28,4 +28,5 @@ Android Studio will build the project and deploy it on the selected emulator.
 The link is already prefilled into the textbox; you just need to click the yellow **ENTER** button.
 
 ### Result:
-![Screenshot_20240618_125824_Fetch Exercise](https://github.com/yLin9917/FetchExercise/assets/123893275/3ec9ea85-4f39-47f9-8f92-441a30c53456)
+
+<img src="https://github.com/yLin9917/FetchExercise/assets/123893275/3ec9ea85-4f39-47f9-8f92-441a30c53456" width="260">
